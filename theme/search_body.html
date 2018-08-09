@@ -1,0 +1,168 @@
+<h3 class="acms-admin-admin-title2">検索設定</h3>
+
+<table class="adminTable acms-admin-table-admin-edit">
+	<tbody>
+	<tr>
+		<th>検索ワード<i class="acms-admin-icon-tooltip js-acms-tooltip" data-acms-tooltip="検索ワードに使われるフィールドです。"></i></th>
+		<td>
+			検索ワードにはa-blog cmsのキーワードURLコンテキストが使用されます。
+		</td>
+	</tr>
+	<tr>
+		<th>並び替え項目<i class="acms-admin-icon-tooltip js-acms-tooltip" data-acms-tooltip="並び替えに使う項目を指定します。"></i></th>
+		<td>
+			<select name="base_search_order">
+				<option value="item_id"{base_search_order:selected#item_id}>ID</option>
+				<option value="price"{base_search_order:selected#price}>価格</option>
+				<option value="stock"{base_search_order:selected#stock}>在庫数</option>
+				<option value="order_count"{base_search_order:selected#order_count}>注文数</option>
+				<option value="modified"{base_search_order:selected#modified}>更新日</option>
+			</select>
+			<input type="hidden" name="config[]" value="base_search_order">
+		</td>
+	</tr>
+	<tr>
+		<th>並び順<i class="acms-admin-icon-tooltip js-acms-tooltip" data-acms-tooltip="並び順を指定します。"></i></th>
+		<td>
+			<select name="base_search_sort">
+				<option value="asc"{base_search_sort:selected#asc}>昇順</option>
+				<option value="desc"{base_search_sort:selected#desc}>降順</option>
+			</select>
+			<input type="hidden" name="config[]" value="base_search_sort">
+		</td>
+	</tr>
+	<tr>
+		<th>表示数<i class="acms-admin-icon-tooltip js-acms-tooltip" data-acms-tooltip="一度に表示される件数です。"></i></th>
+		<td>
+			<input type="text" name="base_search_limit" size="4" value="{base_search_limit}" class="acms-admin-form-width-mini">
+			<input type="hidden" name="config[]" value="base_search_limit">
+			<input type="hidden" name="base_search_limit:convert" value="a">
+			<input type="hidden" name="base_search_limit:validator#digits" id="validator-base_search_limit-digits">
+			<label for="validator-base_search_limit" class="validator-result-">数字を入力して下さい。</label>
+		</td>
+	</tr>
+	<tr>
+		<th>オフセット<i class="acms-admin-icon-tooltip js-acms-tooltip" data-acms-tooltip="開始位置を指定します。"></i></th>
+		<td>
+			<input type="text" name="base_search_offset" size="4" value="{base_search_offset}" class="acms-admin-form-width-mini">
+			<input type="hidden" name="config[]" value="base_search_offset">
+			<input type="hidden" name="base_search_offset:convert" value="a">
+			<input type="hidden" name="base_search_offset:validator#digits" id="validator-base_search_offset-digits">
+			<label for="validator-base_search_offset" class="validator-result-">数字を入力して下さい。</label>
+		</td>
+	</tr>
+	<tr>
+		<th>ショップID<i class="acms-admin-icon-tooltip js-acms-tooltip" data-acms-tooltip="ショップIDを指定します。"></i></th>
+		<td>
+			<input type="text" name="base_search_shop_id" size="4" value="{base_search_shop_id}" class="acms-admin-form-width-mini">
+			<input type="hidden" name="config[]" value="base_search_shop_id">
+		</td>
+	</tr>
+	<tr>
+		<th>検索対象<i class="acms-admin-icon-tooltip js-acms-tooltip" data-acms-tooltip="検索対象のフィールドを入力します。"></i></th>
+		<td>
+			<input type="text" name="base_search_fields" size="4" value="{base_search_fields}" class="acms-admin-form-width-large" placeholder="shop_name,title,detail,categories">
+			<input type="hidden" name="config[]" value="base_search_fields">
+			<p>
+				デフォルト: shop_name,title,detail,categories<br>
+				検索対象のフィールドはここに設定してください。
+				<ul>
+					<li>ID: item_id</li>
+					<li>価格: price</li>
+					<li>在庫数: stock</li>
+					<li>注文数: order_count</li>
+					<li>更新日: modified</li>
+				</ul>
+			</p>
+		</td>
+	</tr>
+	</tbody>
+</table>
+
+<h3 class="acms-admin-admin-title2">スニペット</h3>
+<pre>
+&lt;!-- BEGIN_MODULE Base_Search id="" --&gt;
+&lt;!-- BEGIN_IF [\{error\}/nem/] --&gt;
+商品リストの取得に失敗しました。 \{error\}
+&lt;!-- END_IF --&gt;
+
+&lt;!-- BEGIN notFound --&gt;
+&lt;p&gt;ただいまページを準備しております。もうしばらくお待ちください。&lt;/p&gt;
+&lt;!-- END notFound --&gt;
+&lt;div class="acms-grid-r"&gt;
+	&lt;p&gt;検索ヒット数: \{found\}&lt;/p&gt;
+	&lt;p&gt;取得するスタート位置: \{start\}&lt;/p&gt;
+
+	&lt;!-- BEGIN items:loop --&gt;
+	&lt;div class="acms-col-md-6"&gt;
+		&lt;ul&gt;
+			&lt;li&gt;商品を識別するユニークなID: \{item_id\}&lt;/li&gt;
+			&lt;li&gt;タイトル: \{title\}&lt;/li&gt;
+			&lt;li&gt;詳細: \{detail\}&lt;/li&gt;
+			&lt;li&gt;商品の値段 (税込み): \{price\}&lt;/li&gt;
+			&lt;li&gt;在庫数: \{stock\}&lt;/li&gt;
+			&lt;li&gt;ショップID: \{shop_id\}&lt;/li&gt;
+			&lt;li&gt;ショップ名: \{shop_name\}&lt;/li&gt;
+			&lt;li&gt;ショップURL: \{shop_url\}&lt;/li&gt;
+			&lt;li&gt;商品画像1のオリジナルサイズ: &lt;img src="\{img1_origin\}" width="100%"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像1の76px画像: &lt;img src="\{img1_76\}" width="76"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像1の146px画像: &lt;img src="\{img1_146\}" width="146"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像1の300px画像: &lt;img src="\{img1_300\}" width="300"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像1の500px画像: &lt;img src="\{img1_500\}" width="500"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像1の640px画像: &lt;img src="\{img1_640\}" width="640"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像1のスマホ用480px画像: &lt;img src="\{img1_sp_480\}" width="480"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像1のスマホ用640px画像: &lt;img src="\{img1_sp_640\}" width="640"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像2のオリジナルサイズ: &lt;img src="\{img2_origin\}" width="100%"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像2の76px画像: &lt;img src="\{img2_76\}" width="76"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像2の146px画像: &lt;img src="\{img2_146\}" width="146"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像2の300px画像: &lt;img src="\{img2_300\}" width="300"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像2の500px画像: &lt;img src="\{img2_500\}" width="500"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像2の640px画像: &lt;img src="\{img2_640\}" width="640"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像2のスマホ用480px画像: &lt;img src="\{img2_sp_480\}" width="480"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像2のスマホ用640px画像: &lt;img src="\{img2_sp_640\}" width="640"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像3のオリジナルサイズ: &lt;img src="\{img3_origin\}" width="100%"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像3の76px画像: &lt;img src="\{img3_76\}" width="76"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像3の146px画像: &lt;img src="\{img3_146\}" width="146"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像3の300px画像: &lt;img src="\{img3_300\}" width="300"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像3の500px画像: &lt;img src="\{img3_500\}" width="500"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像3の640px画像: &lt;img src="\{img3_640\}" width="640"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像3のスマホ用480px画像: &lt;img src="\{img3_sp_480\}" width="480"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像3のスマホ用640px画像: &lt;img src="\{img3_sp_640\}" width="640"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像4のオリジナルサイズ: &lt;img src="\{img4_origin\}" width="100%"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像4の76px画像: &lt;img src="\{img4_76\}" width="76"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像4の146px画像: &lt;img src="\{img4_146\}" width="146"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像4の300px画像: &lt;img src="\{img4_300\}" width="300"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像4の500px画像: &lt;img src="\{img4_500\}" width="500"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像4の640px画像: &lt;img src="\{img4_640\}" width="640"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像4のスマホ用480px画像: &lt;img src="\{img4_sp_480\}" width="480"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像4のスマホ用640px画像: &lt;img src="\{img4_sp_640\}" width="640"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像5のオリジナルサイズ: &lt;img src="\{img5_origin\}" width="100%"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像5の76px画像: &lt;img src="\{img5_76\}" width="76"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像5の146px画像: &lt;img src="\{img5_146\}" width="146"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像5の300px画像: &lt;img src="\{img5_300\}" width="300"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像5の500px画像: &lt;img src="\{img5_500\}" width="500"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像5の640px画像: &lt;img src="\{img5_640\}" width="640"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像5のスマホ用480px画像: &lt;img src="\{img5_sp_480\}" width="480"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像5のスマホ用640px画像: &lt;img src="\{img5_sp_640\}" width="640"&gt;&lt;/li&gt;
+			&lt;li&gt;更新時間 : \{modified\}[date('Y年m月d日 H:i')]&lt;/li&gt;
+			&lt;li&gt;
+				バリエーション情報
+				&lt;ul&gt;
+					&lt;!-- BEGIN variations:loop --&gt;
+					&lt;li&gt;
+						&lt;ul&gt;
+							&lt;li&gt;バリエーションを識別するユニークなID: \{variation_id\}&lt;/li&gt;
+							&lt;li&gt;バリエーションの種類: \{variation\}&lt;/li&gt;
+							&lt;li&gt;バリエーションの在庫数: \{variation_stock\}&lt;/li&gt;
+							&lt;li&gt;バリエーションの商品コード: \{variation_identifier\}&lt;/li&gt;
+						&lt;/ul&gt;
+					&lt;/li&gt;
+					&lt;!-- END variations:loop --&gt;
+				&lt;/ul&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+	&lt;/div&gt;
+	&lt;!-- END items:loop --&gt;
+&lt;/div&gt;
+&lt;!-- END_MODULE Base_Search --&gt;
+</pre>

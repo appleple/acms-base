@@ -1,0 +1,4 @@
+%{PREFIX}base_api:
+  - KEY blog (blog_id)
+%{PREFIX}base_cache:
+  - KEY id (id)

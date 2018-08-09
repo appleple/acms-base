@@ -1,0 +1,58 @@
+%{PREFIX}base_api:
+  token_type:
+    Field: 'token_type'
+    Type: 'varchar(16)'
+    Null: 'NO'
+    Key:
+    Default: 
+    Extra:
+  access_token:
+    Field: 'access_token'
+    Type: 'varchar(255)'
+    Null: 'NO'
+    Key: MUL
+    Default:
+    Extra:
+  refresh_token:
+    Field: 'refresh_token'
+    Type: 'varchar(255)'
+    Null: 'NO'
+    Key: MUL
+    Default:
+    Extra:
+  expire:
+    Field: 'expire'
+    Type: 'datetime'
+    Null: 'NO'
+    Key:
+    Default: '1000-01-01 00:00:00'
+    Extra:
+  blog_id:
+    Field: 'blog_id'
+    Type: 'int(11)'
+    Null: 'NO'
+    Key: MUL
+    Default:
+    Extra:
+%{PREFIX}base_cache:
+  id:
+    Field: 'id'
+    Type: 'varchar(128)'
+    Null: 'No'
+    Key: 'PRI'
+    Default:
+    Extra:
+  data:
+    Field: 'data'
+    Type: 'longblob'
+    Null: 'No'
+    Key:
+    Default:
+    Extra:
+  expire:
+    Field: 'expire'
+    Type: 'datetime'
+    Null: 'No'
+    Key:
+    Default:
+    Extra:

@@ -1,0 +1,159 @@
+<header class="acms-admin-grid-r">
+	<div class="acms-admin-col-md-6">
+		<h1 class="acms-admin-admin-title">
+			<i class="acms-admin-icon acms-admin-icon-config_authorize"></i>
+			The Base API 連携
+		</h1>
+	</div>
+	<div class="acms-admin-col-md-6">
+
+	</div>
+</header>
+
+<!-- BEGIN_MODULE Base_Api_Callback -->
+<!-- BEGIN error -->
+<p class="acms-admin-alert acms-admin-alert-danger">
+	<button class="js-acms-alert-close">X</button>
+	認証に失敗しました {msg}
+</p><!-- END error --><!-- BEGIN success -->
+<p class="acms-admin-alert acms-admin-alert-info">
+	<button class="js-acms-alert-close">X</button>
+	認証に成功しました
+</p><!-- END success -->
+<!-- END_MODULE Base_Api_Callback -->
+
+<!-- BEGIN_MODULE Admin_Config -->
+<!-- BEGIN_IF [{notice_mess}/nem/] -->
+<p class="acms-admin-alert acms-admin-alert-info">
+	<button class="js-acms-alert-close">X</button>
+	The BASE API 設定を保存しました
+</p><!-- END_IF -->
+
+
+<form action="" method="post" class="acms-admin-form">
+	<div class="js-acms_fix_marker js-acms_fix_target acms_fix_bg">
+		<div class="acms_fix_bg_index">
+			<input type="submit" name="ACMS_POST_Config" value="<!--T-->保存<!--/T-->"
+				   class="acms-admin-btn-admin acms-admin-btn-admin-primary acms-admin-btn-admin-save"/>
+		</div>
+	</div>
+
+	<h2 class="acms-admin-admin-title2">OAuth2認証</h2>
+	<table class="acms-admin-table-admin-edit">
+		<tr>
+			<th>キャッシュタイム<i class="acms-admin-icon-tooltip js-acms-tooltip" data-acms-tooltip="APIリクエスト数を減らすために、APIれクエスト結果をキャッシュする時間を秒で指定します。"></i></th>
+			<td>
+				<input type="text" name="base_cache_time" value="{base_cache_time}" class="acms-admin-form-width-mini"/> 秒
+				<input type="hidden" name="config[]" value="base_cache_time"/>
+			</td>
+		</tr>
+		<tr>
+			<th>クライアントID<i class="acms-admin-icon-tooltip js-acms-tooltip" data-acms-tooltip="BASE Developersで登録したアプリのクライアントIDを指定します。"></i></th>
+			<td>
+				<input type="text" name="base_client_id" value="{base_client_id}" class="acms-admin-form-width-medium"/>
+				<input type="hidden" name="config[]" value="base_client_id"/>
+			</td>
+		</tr>
+		<tr>
+			<th>クライアントシークレット<i class="acms-admin-icon-tooltip js-acms-tooltip" data-acms-tooltip="BASE Developersで登録したアプリのクライアントシークレットを指定します。"></i></th>
+			<td>
+				<input type="text" name="base_client_secret" value="{base_client_secret}" class="acms-admin-form-width-medium"/>
+				<input type="hidden" name="config[]" value="base_client_secret"/>
+			</td>
+		</tr>
+		<tr>
+			<th>クライアントID（検索用）<i class="acms-admin-icon-tooltip js-acms-tooltip" data-acms-tooltip="BASE Developersで登録したアプリの検索用のクライアントIDを入力します。"></i></th>
+			<td>
+				<input type="text" name="base_search_client_id" value="{base_search_client_id}" class="acms-admin-form-width-medium"/>
+				<input type="hidden" name="config[]" value="base_search_client_id"/>
+			</td>
+		</tr>
+		<tr>
+			<th>クライアントシークレット（検索用）<i class="acms-admin-icon-tooltip js-acms-tooltip" data-acms-tooltip="BASE Developersで登録したアプリの検索用のクライアントシークレットを入力します。"></i></th>
+			<td>
+				<input type="text" name="base_search_client_secret" value="{base_search_client_secret}" class="acms-admin-form-width-medium"/>
+				<input type="hidden" name="config[]" value="base_search_client_secret"/>
+			</td>
+		</tr>
+		<tr>
+			<th>コールバックURL<i class="acms-admin-icon-tooltip js-acms-tooltip" data-acms-tooltip="ここのURLをBASE Developersで登録したアプリのコールバックURLに指定してください。"></i></th>
+			<td>
+				<p>
+					<strong>%{HTTP_ROOT}bid/1/admin/app_base_index/</strong>
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<th>スコープ<i class="acms-admin-icon-tooltip js-acms-tooltip" data-acms-tooltip="ここのスコープを許可してBASE Developersでアプリを作成してください。"></i></th>
+			<td>
+				<p>
+					<strong>read_users | read_items</strong>
+				</p>
+			</td>
+		</tr><!-- BEGIN_IF [{base_client_id}/nem/_and_/{base_client_secret}/nem/] -->
+		<tr>
+			<th>認証<i class="acms-admin-icon-tooltip js-acms-tooltip" data-acms-tooltip="設定を行ったのち認証を行ってください。"></i></th>
+			<td>
+				<!-- BEGIN_MODULE Base_Api_Auth -->
+				<p><!-- BEGIN user -->
+					<!-- BEGIN_IF [{shop_id}/nem/] -->
+					認証済み: {shop_name}
+					<!-- END_IF -->
+					<!-- END user -->
+					<a href="{redirect_url}" class="acms-admin-btn">認証する</a>
+				</p>
+				<!-- END_MODULE Base_Api_Auth -->
+			</td>
+		</tr><!-- END_IF -->
+	</table>
+</form>
+
+<!-- END_MODULE Admin_Config -->
+
+<p class="acms-admin-alert acms-admin-alert-danger">
+	<button class="js-acms-alert-close">×</button>
+	30日間APIリクエストがないとトークンが失効します。失効すると再度認証が必要になります。
+</p>
+
+<h2 class="acms-admin-admin-title2">利用できるモジュール</h2>
+<table class="acms-admin-table-admin-edit">
+	<tr>
+		<th>商品一覧（Base_Items）</th>
+		<td>
+			<p>
+			ショップの商品を一覧で表示するためのモジュールです。モジュールID化し表示件数など設定ください。
+			スニペットはモジュールの表示設定にあります。
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th>商品詳細（Base_Detail）</th>
+		<td>
+			<p>
+			１商品を表示するためのモジュールです。The BASE 側の商品IDをカスタムフィールドに保存できるようにカスタマイズする必要があります。モジュールID化し設定を行ってください。
+			スニペットはモジュールの表示設定にあります。
+			</p>
+
+			<ul>
+				<li>フィールドタイプ: 商品IDを登録するフィールドタイプです</li>
+				<li>フィールド名: 商品IDを登録するフィールド名を指定</li>
+			</ul>
+
+			<p>
+			ここで設定したフィールドとフィールド名でテキストのカスタムフィールドを作成してください。ここに商品IDを登録します。
+			</p>
+
+			<p>また、フィールドのタイプに合わせてモジュールIDの引数設定にチェックをつけてください。</p>
+		</td>
+	</tr>
+	<tr>
+		<th>商品検索（Base_Search）</th>
+		<td>
+			<p>
+			このモジュールを使用する場合は、検索用のクライアントID, クライアントシークレットを設定ください。
+			また、モジュールID化しキーワードの引数設定にチェックをつけてください。スニペットはモジュールの表示設定にあります。
+			</p>
+		</td>
+	</tr>
+</table>
+

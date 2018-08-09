@@ -1,0 +1,96 @@
+<h3 class="acms-admin-admin-title2">表示設定</h3>
+
+<table class="adminTable acms-admin-table-admin-edit">
+	<tbody>
+	<tr>
+		<th>並び替え項目<i class="acms-admin-icon-tooltip js-acms-tooltip" data-acms-tooltip="並び替えに使う項目を指定します。"></i></th>
+		<td>
+			<select name="base_items_order">
+				<option value="list_order"{base_items_order:selected#list_order}>並び順</option>
+				<option value="created"{base_items_order:selected#created}>登録日</option>
+			</select>
+			<input type="hidden" name="config[]" value="base_items_order">
+		</td>
+	</tr>
+	<tr>
+		<th>並び順<i class="acms-admin-icon-tooltip js-acms-tooltip" data-acms-tooltip="並び順を指定します。"></i></th>
+		<td>
+			<select name="base_items_sort">
+				<option value="asc"{base_items_sort:selected#asc}>昇順</option>
+				<option value="desc"{base_items_sort:selected#desc}>降順</option>
+			</select>
+			<input type="hidden" name="config[]" value="base_items_sort">
+		</td>
+	</tr>
+	<tr>
+		<th>表示数<i class="acms-admin-icon-tooltip js-acms-tooltip" data-acms-tooltip="一度に表示される件数です。"></i></th>
+		<td>
+			<input type="text" name="base_items_limit" size="4" value="{base_items_limit}" class="acms-admin-form-width-mini">
+			<input type="hidden" name="config[]" value="base_items_limit">
+			<input type="hidden" name="base_items_limit:convert" value="a">
+			<input type="hidden" name="base_items_limit:validator#digits" id="validator-base_items_limit-digits">
+			<label for="validator-base_items_limit" class="validator-result-">数字を入力して下さい。</label>
+		</td>
+	</tr>
+	<tr>
+		<th>オフセット<i class="acms-admin-icon-tooltip js-acms-tooltip" data-acms-tooltip="開始位置を指定します。"></i></th>
+		<td>
+			<input type="text" name="base_items_offset" size="4" value="{base_items_offset}" class="acms-admin-form-width-mini">
+			<input type="hidden" name="config[]" value="base_items_offset">
+			<input type="hidden" name="base_items_offset:convert" value="a">
+			<input type="hidden" name="base_items_offset:validator#digits" id="validator-base_items_offset-digits">
+			<label for="validator-base_items_offset" class="validator-result-">数字を入力して下さい。</label>
+		</td>
+	</tr>
+	</tbody>
+</table>
+
+<h3 class="acms-admin-admin-title2">スニペット</h3>
+<pre>
+&lt;!-- BEGIN_MODULE Base_Items id="" --&gt;
+&lt;!-- BEGIN_IF [\{error\}/nem/] --&gt;
+商品リストの取得に失敗しました。 \{error\}
+&lt;!-- END_IF --&gt;
+
+&lt;!-- BEGIN notFound --&gt;
+&lt;p&gt;ただいまページを準備しております。もうしばらくお待ちください。&lt;/p&gt;
+&lt;!-- END notFound --&gt;
+&lt;div class="acms-grid-r"&gt;
+	&lt;!-- BEGIN items:loop --&gt;
+	&lt;div class="acms-col-md-6"&gt;
+		&lt;ul&gt;
+			&lt;li&gt;商品を識別するユニークなID: \{item_id\}&lt;/li&gt;
+			&lt;li&gt;タイトル: \{title\}&lt;/li&gt;
+			&lt;li&gt;詳細: \{detail\}&lt;/li&gt;
+			&lt;li&gt;商品の値段 (税込み): \{price\}&lt;/li&gt;
+			&lt;li&gt;在庫数: \{stock\}&lt;/li&gt;
+			&lt;li&gt;表示フラグ: \{visible\}&lt;/li&gt;
+			&lt;li&gt;表示順: \{list_order\}&lt;/li&gt;
+			&lt;li&gt;商品コード: \{identifier\}&lt;/li&gt;
+			&lt;li&gt;商品画像1のオリジナルサイズ: &lt;img src="\{img1_origin\}" width="100%"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像2のオリジナルサイズ: &lt;img src="\{img2_origin\}" width="100%"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像3のオリジナルサイズ: &lt;img src="\{img3_origin\}" width="100%"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像4のオリジナルサイズ: &lt;img src="\{img4_origin\}" width="100%"&gt;&lt;/li&gt;
+			&lt;li&gt;商品画像5のオリジナルサイズ: &lt;img src="\{img5_origin\}" width="100%"&gt;&lt;/li&gt;
+			&lt;li&gt;更新時間 : \{modified\}[date('Y年m月d日 H:i')]&lt;/li&gt;
+			&lt;li&gt;
+				バリエーション情報
+				&lt;ul&gt;
+					&lt;!-- BEGIN variations:loop --&gt;
+					&lt;li&gt;
+						&lt;ul&gt;
+							&lt;li&gt;バリエーションを識別するユニークなID: \{variation_id\}&lt;/li&gt;
+							&lt;li&gt;バリエーションの種類: \{variation\}&lt;/li&gt;
+							&lt;li&gt;バリエーションの在庫数: \{variation_stock\}&lt;/li&gt;
+							&lt;li&gt;バリエーションの商品コード: \{variation_identifier\}&lt;/li&gt;
+						&lt;/ul&gt;
+					&lt;/li&gt;
+					&lt;!-- END variations:loop --&gt;
+				&lt;/ul&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+	&lt;/div&gt;
+	&lt;!-- END items:loop --&gt;
+&lt;/div&gt;
+&lt;!-- END_MODULE Base_Items --&gt;
+</pre>
