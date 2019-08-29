@@ -3,6 +3,8 @@
 
 ## ダウンロード・設置
 
+ここから[Base](https://github.com/appleple/acms-base/archive/master.zip)をダウンロードしてください。
+
 ここにディレクトリを設置してください。
 
 extension/plugins/Base
