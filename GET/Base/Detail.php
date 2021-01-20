@@ -6,6 +6,7 @@ use ACMS_Corrector;
 use ACMS_GET;
 use Template;
 use RuntimeException;
+use Exception;
 
 class Detail extends Api
 {
