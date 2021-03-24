@@ -1,8 +1,8 @@
 <?php
 
 namespace Acms\Plugins\Base\GET\Base\Api;
+
 use Acms\Plugins\Base\GET\Base\Api;
-use ACMS_GET;
 use ACMS_Corrector;
 use Template;
 use Exception;

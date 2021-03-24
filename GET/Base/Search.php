@@ -1,9 +1,9 @@
 <?php
 
 namespace Acms\Plugins\Base\GET\Base;
-use Acms\Plugins\Base\GET\Base\Api;
+
 use ACMS_Corrector;
-use ACMS_GET;
+use App;
 use Template;
 use Exception;
 
@@ -16,14 +16,17 @@ class Search extends Api
     function get()
     {
         $Tpl = new Template($this->tpl, new ACMS_Corrector());
+        $config = App::make('app-the-base-config');
         $items = array();
         $error = '';
+        $found = 0;
+        $start = 0;
 
         try {
             $client = $this->getClient();
             $json = $client->get('search', array(
-                'client_id'     => config('base_search_client_id'),
-                'client_secret' => config('base_search_client_secret'),
+                'client_id'     => $config->get('base_search_client_id'),
+                'client_secret' => $config->get('base_search_client_secret'),
                 'q'             => $this->keyword,
                 'sort'          => config('base_search_order', 'item') . ' ' . config('base_search_sort', 'asc'), // (item_id|price|stock|order_count|modified) + (asc|desc)
                 'start'         => config('base_search_offset', 0),
@@ -31,15 +34,20 @@ class Search extends Api
                 'fields'        => config('base_search_fields', 'shop_name,title.detail,categories'),
                 'shop_id'       => config('base_search_shop_id', ''),
             ));
+            if (empty($json)) {
+                throw new \RuntimeException('Failed to get json.');
+            }
             $items = $json->items;
+            $found = $json->found;
+            $start = $json->start;
         } catch ( Exception $e ) {
             $error = $e->getMessage();
         }
 
         return $Tpl->render(array(
             'error' => $error,
-            'found' => $json->found,
-            'start' => $json->start,
+            'found' => $found,
+            'start' => $start,
             'items' => $items,
         ));
     }

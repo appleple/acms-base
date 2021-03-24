@@ -1,9 +1,8 @@
 <?php
 
 namespace Acms\Plugins\Base\GET\Base;
-use Acms\Plugins\Base\GET\Base\Api;
+
 use ACMS_Corrector;
-use ACMS_GET;
 use Template;
 use RuntimeException;
 use Exception;
@@ -21,6 +20,7 @@ class Detail extends Api
         $Tpl = new Template($this->tpl, new ACMS_Corrector());
         $error = '';
         $item = array();
+
 
         try {
             $fieldType = config('base_detail_field_type', 'entry');

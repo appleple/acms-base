@@ -1,13 +1,15 @@
 <?php
 
 namespace Acms\Plugins\Base;
+
 use ACMS_App;
+use App;
 use Config;
 use Acms\Services\Common\InjectTemplate;
 
 class ServiceProvider extends ACMS_App
 {
-    public $version     = '1.0.0';
+    public $version     = '1.0.1';
     public $name        = 'The BASE';
     public $author      = 'com.appleple';
     public $module      = false;
@@ -32,6 +34,12 @@ class ServiceProvider extends ACMS_App
         $inject->add('admin-module-config-Base_Detail', PLUGIN_DIR . 'Base/theme/detail_body.html');
         $inject->add('admin-module-config-Base_Search', PLUGIN_DIR . 'Base/theme/search_body.html');
         $inject->add('admin-module-select', PLUGIN_DIR . 'Base/theme/select.user.html');
+
+        App::singleton('app-the-base-config', function () {
+            $config = Config::loadDefaultField();
+            $config->overload(Config::loadBlogConfig(BID));
+            return $config;
+        });
     }
 
     /**

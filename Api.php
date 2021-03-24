@@ -1,12 +1,20 @@
 <?php
 
 namespace Acms\Plugins\Base;
+
 use RuntimeException;
 use SQL;
 use DB;
+use App;
+use Config;
 
 class Api
 {
+    /**
+     * @var \Field
+     */
+    protected $config;
+
     /**
      * @var string
      */
@@ -51,6 +59,8 @@ class Api
      */
     public function __construct($client_id, $client_secret, $callback_uri)
     {
+        $this->config = App::make('app-the-base-config');
+
         $this->setClientId($client_id);
         $this->setClientSecret($client_secret);
         $this->setCallbackUri($callback_uri);
@@ -318,7 +328,7 @@ class Api
         $SQL = SQL::newInsert('base_cache');
         $SQL->addInsert('id', $key);
         $SQL->addInsert('data', $value);
-        $SQL->addInsert('expire', date('Y-m-d H:i:s', REQUEST_TIME + config('base_cache_time', 0)));
+        $SQL->addInsert('expire', date('Y-m-d H:i:s', REQUEST_TIME + $this->config->get('base_cache_time', 0)));
         DB()->query($SQL->get(dsn()), 'exec');
     }
 

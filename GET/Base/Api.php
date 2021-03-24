@@ -3,8 +3,8 @@
 namespace Acms\Plugins\Base\GET\Base;
 
 use ACMS_GET;
+use App;
 use Acms\Plugins\Base\Api as BaseApi;
-
 
 class Api extends ACMS_GET
 {
@@ -30,9 +30,11 @@ class Api extends ACMS_GET
 
     public static function create()
     {
+        $config = App::make('app-the-base-config');
+
         return new BaseApi(
-            config('base_client_id'),
-            config('base_client_secret'),
+            $config->get('base_client_id'),
+            $config->get('base_client_secret'),
             BASE_URL. 'bid/' .BID .'/admin/app_base_index/'
         );
     }
