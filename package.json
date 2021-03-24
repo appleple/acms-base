@@ -1,6 +1,6 @@
 {
   "name": "acms-the-base",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The BASEと連携するためのモジュールを提供します。",
   "main": "deploy.js",
   "scripts": {
